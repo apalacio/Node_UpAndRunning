@@ -5,9 +5,6 @@ var chatServer =  net.createServer(),
 	clientList = [];
 
 function broadcast(message, client){
-
-		
-
 		for (var i = 0;  i < clientList.length; i+=1) {
 			if (client!=clientList[i]) {
 				if(clientList[i].writable){
