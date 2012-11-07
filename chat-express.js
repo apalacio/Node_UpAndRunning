@@ -16,18 +16,25 @@ app.get('/tweets', function(req, res){
 
 
 app.post('/send', express.bodyParser(), function(req, res){
-	if(req.body && req.body.tweet){
+
+	console.log('body: '+ req.body);
+	console.log('body.tweet: '+ req.body.tweet);
+
+	if(req.body && req.body.tweet) {
 		tweets.push(req.body.tweet);
 		res.send({
 			status: "ok",
 			message: "Tweets received"
 		});
 	} else{
-		//no tweet ?
+		console.log('Llegué..');	
+		//no tweet ?		
 		res.send({
 			status: "nok",
 			message: "No tweet received"
 		});
 	}
 });
+
+console.log("Server Running");
 
