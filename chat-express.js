@@ -1,40 +1,33 @@
 var express = require('express');
-
 var app = express();
-app.listen(8000);
+/*app.configure(function() {
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: 'secret goes here' }));
+  app.use(express.bodyParser());
+  app.use(app.router);
+});
+*/
 
-var tweets = [];
+app.listen(8000)
+var tweets = []
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
 	res.send('Welcome to Node Twitter')
-});
+})
 
-
-app.get('/tweets', function(req, res){
-	res.send(tweets);
-});
-
-
-app.post('/send', express.bodyParser(), function(req, res){
-
-	console.log('body: '+ req.body);
-	console.log('body.tweet: '+ req.body.tweet);
-
-	if(req.body && req.body.tweet) {
-		tweets.push(req.body.tweet);
-		res.send({
-			status: "ok",
-			message: "Tweets received"
-		});
-	} else{
-		console.log('Llegué..');	
-		//no tweet ?		
-		res.send({
-			status: "nok",
-			message: "No tweet received"
-		});
+app.post('/send', express.bodyParser(), function(req, res) {
+	if (req.body && req.body.tweet) {
+		tweets.push(req.body.tweet)
+		res.send({status:"ok", message:"Tweet received"});
+	} else {
+	//no tweet?
+		res.send({status:"nok", message:"No tweet received"});
 	}
-});
+})
+
+app.get('/tweets', function(req,res) {
+	res.send(tweets)
+})
 
 console.log("Server Running");
 
